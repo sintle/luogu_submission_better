@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -14,7 +14,7 @@
 function main() {
     // let jsdelivr = 'https://cdn.jsdelivr.net'
     // let jsdelivr = 'https://cdn.mengze.vip'
-    let jsdelivr = 'https://jsdelivrcn.netlify.app/'
+    let jsdelivr = 'https://jsdelivrcn.netlify.app'
     let AC = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/AC.gif`
     let WA = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/WA.gif`
     let TLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/TLE.gif`
