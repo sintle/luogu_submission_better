@@ -22,8 +22,11 @@ function main() {
     let Judging = 'https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/Judging.gif'
     let tc = document.getElementsByClassName('test-case');
     let len = tc.length;
-    console.log(len);
     for (let i = 0; i < len; i += 1) {
+        if (tc[i].getElementsByClassName("spinner").length) {
+            tc[i].style = `background: linear-gradient(rgba(20, 85, 143, 0.3), rgba(20, 85, 143, 0.3)), url('${Judging}'); background-size: cover;`;
+            continue;
+        }
         let status = tc[i].getElementsByClassName('status')[0].innerHTML.substring(0, 2);
         if (status === "AC") {
             tc[i].style = `background: linear-gradient(rgba(82, 196, 26, 0.3), rgba(82, 196, 26, 0.3)), url('${AC}'); background-size: cover;`;
@@ -39,13 +42,11 @@ function main() {
             tc[i].style = `background: linear-gradient(rgba(5, 34, 66, 0.3), rgba(5, 34, 66, 0.3)), url('${OLE}'); background-size: cover;`;
         } else if (status === "UK") {
             tc[i].style = `background: linear-gradient(rgba(14, 29, 105, 0.3), rgba(14, 29, 105, 0.3)), url('${UKE}'); background-size: cover;`;
-        } else if (tc[i].style === "background: rgb(20, 85, 143);") {
-            tc[i].style = `background: linear-gradient(rgba(20, 85, 143, 0.3), rgba(20, 85, 143, 0.3)), url('${Judging}'); background-size: cover;`;
         }
     }
 };
 (function () {
-    let i = setInterval(function () {
-        if (main()) clearInterval(i);
+    setInterval(function () {
+        main();
     }, 10);
 })();
