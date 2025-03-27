@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    http://tampermonkey.net/
-// @version      0.7
+// @version      0.8
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
