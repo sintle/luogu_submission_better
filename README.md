@@ -23,7 +23,7 @@
 
 - 为什么图片没有加载？
 
-  默认用 jsdelivr.net 加速了。建议先访问一下 <https://cdn.jsdelivr.net> 和 https://jsdelivr.net 确保连接通畅。
+  默认用 jsdelivr.net 加速了。建议先访问一下 <https://cdn.jsdelivr.net> 和 <https://www.jsdelivr.com/> 确保连接通畅。
 
 - 如何修改图片？
 
