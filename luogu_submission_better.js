@@ -10,14 +10,14 @@
 // ==/UserScript==
 
 function main() {
-    let AC = ''
-    let WA = 'https://www.luogu.com.cn/fe/api/problem/downloadAttachment/0a4xlt6d'
-    let TLE = 'https://www.luogu.com.cn/fe/api/problem/downloadAttachment/05z5cfy2'
-    let MLE = 'https://www.luogu.com.cn/fe/api/problem/downloadAttachment/qffikhqm'
-    let RE = 'https://www.luogu.com.cn/fe/api/problem/downloadAttachment/ymzenwb8'
-    let OLE = 'https://www.luogu.com.cn/fe/api/problem/downloadAttachment/evpbn9w0'
-    let UKE = 'https://www.luogu.com.cn/fe/api/problem/downloadAttachment/0q7k51b6'
-    let Judging = ''
+    let AC = 'https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/AC.gif'
+    let WA = 'https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/WA.gif'
+    let TLE = 'https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/TLE.gif'
+    let MLE = 'https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/MLE.gif'
+    let RE = 'https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/RE.gif'
+    let OLE = 'https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/OLE.gif'
+    let UKE = 'https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/UKE.gif'
+    let Judging = 'https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/Judging.gif'
     let tc = document.getElementsByClassName('test-case');
     let len = tc.length;
     console.log(len);
