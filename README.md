@@ -3,6 +3,10 @@
 - <https://greasyfork.org/zh-CN/scripts/530997-%E6%B4%9B%E8%B0%B7%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96>
 - <https://raw.githubusercontent.com/chenyuxuan2009/luogu_submission_better/refs/heads/main/luogu_submission_better.js>
 
+- <https://gitee.com/cyx2009/luogu_submission_better/raw/main/luogu_submission_better.js>
+
+如果前两个都打不开可以选择使用第三个 gitee 的镜像仓库链接。
+
 # 效果展示
 
 ![](https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/example1.png)
