@@ -1,10 +1,3 @@
----
-title: "[工程] 洛谷修改提交记录方框背景"
-categories: Technology
-tag: []
-date: 2025-03-27 16:12
----
-
 # 插件下载地址
 
 - <https://greasyfork.org/zh-CN/scripts/530997-%E6%B4%9B%E8%B0%B7%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96>
