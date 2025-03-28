@@ -45,7 +45,7 @@ function main() {
     let ac = 0;
     let judging = 0;
     for (let i = 0; i < len; i += 1) {
-        if (tc[i].getElementsByClassName("spinner").length) {
+        if (tc[i].style.background === 'rgb(20, 85, 143)') {
             judging = 1;
             tc[i].style = getCol(7);
             continue;
