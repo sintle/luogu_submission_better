@@ -17,9 +17,13 @@
 
 ![](https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/example2.gif)
 
-前者可以安装插件成功之后在 <https://www.luogu.com.cn/record/72597888> 查看。
+![](https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/example3.gif)
 
-后者由于 Judging 状态难以维持，无法提供长久有效的链接查看效果。可以写题的时候留意一下。
+第一张图可以安装插件成功之后在 <https://www.luogu.com.cn/record/72597888> 查看。
+
+第二张图由于 Judging 状态难以维持，无法提供长久有效的链接查看效果。可以写题的时候留意一下。
+
+第三张图在正常等待评测的时候会显示，遇上 RMJ 失效会概率 UKE / Waiting。
 
 # 常见问题
 
