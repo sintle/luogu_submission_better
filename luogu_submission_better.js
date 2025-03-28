@@ -1,14 +1,12 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      1.3
+// @version      1.4
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
 // @run-at       document-end
 // @license      MIT
-// @downloadURL  https://raw.githubusercontent.com/chenyuxuan2009/luogu_submission_better/refs/heads/main/luogu_submission_better.js
-// @updateURL    https://raw.githubusercontent.com/chenyuxuan2009/luogu_submission_better/refs/heads/main/luogu_submission_better.js
 // ==/UserScript==
 
 // let jsdelivr = 'https://cdn.jsdelivr.net'
@@ -94,8 +92,6 @@ function main() {
     if (info.innerHTML.includes('Compile Error') || info.innerHTML.includes('CE')) firstSTA = 8;
     if (info.innerHTML.includes('Unknown Error') || info.innerHTML.includes('UKE')) firstSTA = 6;
     if (info.innerHTML.includes('Waiting') || info.innerHTML.includes('WJ')) firstSTA = 9;
-    // if (firstSTA === -1) firstSTA = 8;
-    // if (!info.innerHTML.includes(txt[firstSTA]))
     // info.innerHTML = `${firstSTA}`;
     // info.innerHTML = `${txt[firstSTA]}`;
     if (firstSTA === -1) return;
