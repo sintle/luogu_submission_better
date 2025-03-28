@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -97,5 +97,5 @@ function main() {
 (function () {
     setInterval(function () {
         main();
-    }, 200);
+    }, 10);
 })();
