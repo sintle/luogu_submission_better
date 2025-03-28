@@ -13,11 +13,9 @@
 
 # 效果展示
 
-![](https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/example1.png)
+![](https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/example1.gif)
 
-![](https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/example2.png)
-
-其实都是动图，懒得录动图效果了（
+![](https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/example2.gif)
 
 前者可以安装插件成功之后在 <https://www.luogu.com.cn/record/72597888> 查看。
 
