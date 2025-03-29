@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.0
+// @version      2.1
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -22,18 +22,27 @@ const jsdelivrOptions = [
     'https://jsdelivrcn.netlify.app',
     'https://cdn.mengze.vip'
 ];
+const themeOptions = [
+    'milkdragon'
+];
 let jsdelivr = localStorage.getItem("jsdelivr") || 'https://cdn.jsdelivr.net';
-let AC = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/AC.gif`
-let WA = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/WA.gif`
-let TLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/TLE.gif`
-let MLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/MLE.gif`
-let RE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/RE.gif`
-let OLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/OLE.gif`
-let UKE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/UKE.gif`
-let Judging = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/Judging.gif`
-let CE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/CE.gif`
-let Waiting = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/Waiting.gif`
-let Unshown = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/Unshown.gif`
+let theme = localStorage.getItem("theme") || 'milkdragon';
+function getImage(theme, x) {
+    return Object.hasOwn(themeOptions, theme) ?
+        `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/${theme}/${x}.gif` :
+        localStorage.getItem(`${x}`);
+}
+let AC = getImage(theme, 'AC');
+let WA = getImage(theme, 'WA');
+let TLE = getImage(theme, 'TLE');
+let MLE = getImage(theme, 'MLE');
+let RE = getImage(theme, 'RE');
+let OLE = getImage(theme, 'OLE');
+let UKE = getImage(theme, 'UKE');
+let Judging = getImage(theme, 'Judging');
+let CE = getImage(theme, 'CE');
+let Waiting = getImage(theme, 'Waiting');
+let Unshown = getImage(theme, 'Unshown');
 let ACcol = `rgba(82, 196, 26, ${opacity})`;
 let WAcol = `rgba(231, 76, 60, ${opacity})`;
 let TLEcol = `rgba(5, 34, 66, ${opacity})`;
@@ -141,112 +150,112 @@ function addButton() {
             <p>选择 jsdelivr 源服务器：<br>（只适用官方主题）</p>
             <select id="jsdelivrSelect">
                 ${jsdelivrOptions.map(option => `<option value="${option}" ${option === jsdelivr ? 'selected' : ''}>${option}</option>`).join('')}
-                <option value="custom">自定义</option>
-            </select>
-            <input type="text" id="customJsdelivr" style="display:none;" placeholder="输入自定义地址">
+                ${`<option value="custom" ${!jsdelivrOptions.includes(jsdelivr) ? 'selected' : ''}>自定义</option>`}            
+            </select >
+            <input type="text" id="customJsdelivr" placeholder="输入自定义地址" ${!jsdelivrOptions.includes(jsdelivr) ? `value='${jsdelivr}' style="display:block;" ` : `style="display:none;"`}>
             <button id="saveJsdelivr">保存 jsdelivr 设置</button>
-        `;
+            `;
 
         // 添加样式
         let style = document.createElement("style");
         style.innerHTML = `
-#settingsPopup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    background: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    z-index: 9999;
-    border-radius: 8px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+            #settingsPopup {
+                position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 9999;
+            border-radius: 8px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 }
 
-.popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 8px;
-    margin-bottom: 10px;
-    width: 100%;
+            .popup-header {
+                display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            width: 100%;
 }
 
-#closePopup {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
+            #closePopup {
+                background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
 }
 
-#opacityInput {
-    width: 80%;
-    margin: 10px 0;
-    padding: 5px;
-    text-align: center;
-    border-radius: 5px;
-    border: 1px solid #ccc;  /* 和 jsdelivr 选择框一致的边框 */
+            #opacityInput {
+                width: 80%;
+            margin: 10px 0;
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+            border: 1px solid #ccc;  /* 和 jsdelivr 选择框一致的边框 */
 }
 
-#saveOpacity {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 5px;
+            #saveOpacity {
+                background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
 }
 
-#saveOpacity:hover {
-    background: #0056b3;
+            #saveOpacity:hover {
+                background: #0056b3;
 }
 
-.jsdelivr-settings {
-    margin: 10px 0;
-    width: 80%;
-    text-align: left;
+            .jsdelivr-settings {
+                margin: 10px 0;
+            width: 80%;
+            text-align: left;
 }
 
-#jsdelivrSelect {
-    width: 100%;
-    padding: 5px;
-    margin: 5px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+            #jsdelivrSelect {
+                width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
 }
 
-#customJsdelivr {
-    width: 100%;
-    padding: 5px;
-    margin: 5px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    text-align: center;
+            #customJsdelivr {
+                width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            text-align: center;
 }
 
-#saveJsdelivr {
-    background: #007bff;  /* 改成蓝色 */
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 5px;
+            #saveJsdelivr {
+                background: #007bff;  /* 改成蓝色 */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
 }
 
-#saveJsdelivr:hover {
-    background: #0056b3;
+            #saveJsdelivr:hover {
+                background: #0056b3;
 }
-`;
+            `;
 
         document.body.appendChild(style);
         document.body.appendChild(popup);
@@ -284,12 +293,12 @@ function addButton() {
 
     // 绑定点击事件，打开悬浮框
     document.querySelector(".nav-group.on-expand ul").insertAdjacentHTML("beforeend", `
-        <li data-v-40281d0d="" data-v-6c9e83f4="" title="插件设置">
-          <a data-v-12b24cc3="" data-v-40281d0d="" href="#" class="" disabled="false" id="pluginSettingsBtn">
-            <span data-v-40281d0d="" class="title minor">插件设置</span>
-          </a>
-        </li>
-    `);
+            <li data-v-40281d0d="" data-v-6c9e83f4="" title="插件设置">
+                <a data-v-12b24cc3="" data-v-40281d0d="" href="#" class="" disabled="false" id="pluginSettingsBtn">
+                    <span data-v-40281d0d="" class="title minor">插件设置</span>
+                </a>
+            </li>
+            `);
 
     document.getElementById("pluginSettingsBtn").addEventListener("click", function (event) {
         event.preventDefault();
