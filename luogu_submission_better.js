@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.2
+// @version      2.3
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -28,7 +28,7 @@ const themeOptions = [
 let jsdelivr = localStorage.getItem("jsdelivr") || 'https://cdn.jsdelivr.net';
 let theme = localStorage.getItem("theme") || 'milkdragon';
 function getImage(theme, x) {
-    return Object.hasOwn(themeOptions, theme) ?
+    return themeOptions.includes(theme) ?
         `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/${theme}/${x}.gif` :
         localStorage.getItem(`${x}`);
 }
