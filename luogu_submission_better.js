@@ -12,6 +12,8 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @license      MIT
+// @downloadURL https://update.greasyfork.org/scripts/530997/%E6%B4%9B%E8%B0%B7%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96.user.js
+// @updateURL https://update.greasyfork.org/scripts/530997/%E6%B4%9B%E8%B0%B7%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96.user.js
 // ==/UserScript==
 
 let opacity = localStorage.getItem("opacity") || 0.3;
@@ -175,7 +177,7 @@ function addButton() {
     flex-direction: column;
     align-items: center;
 }
- 
+
 .popup-header {
     display: flex;
     justify-content: space-between;
@@ -187,14 +189,14 @@ function addButton() {
     margin-bottom: 10px;
     width: 100%;
 }
- 
+
 #closePopup {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 18px;
 }
- 
+
 #opacityInput {
     width: 80%;
     margin: 10px 0;
@@ -203,7 +205,7 @@ function addButton() {
     border-radius: 5px;
     border: 1px solid #ccc;  /* 和 jsdelivr 选择框一致的边框 */
 }
- 
+
 #saveOpacity {
     background: #007bff;
     color: white;
@@ -212,17 +214,17 @@ function addButton() {
     cursor: pointer;
     border-radius: 5px;
 }
- 
+
 #saveOpacity:hover {
     background: #0056b3;
 }
- 
+
 .jsdelivr-settings {
     margin: 10px 0;
     width: 80%;
     text-align: left;
 }
- 
+
 #jsdelivrSelect {
     width: 100%;
     padding: 5px;
@@ -230,7 +232,7 @@ function addButton() {
     border-radius: 5px;
     border: 1px solid #ccc;
 }
- 
+
 #customJsdelivr {
     width: 100%;
     padding: 5px;
@@ -240,7 +242,7 @@ function addButton() {
     box-sizing: border-box;
     text-align: center;
 }
- 
+
 #saveJsdelivr {
     background: #007bff;  /* 改成蓝色 */
     color: white;
@@ -249,7 +251,7 @@ function addButton() {
     cursor: pointer;
     border-radius: 5px;
 }
- 
+
 #saveJsdelivr:hover {
     background: #0056b3;
 }
