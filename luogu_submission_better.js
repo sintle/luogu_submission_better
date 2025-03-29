@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.4
+// @version      2.5
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -23,8 +23,13 @@ const jsdelivrOptions = [
     'https://cdn.mengze.vip'
 ];
 const themeOptions = [
-    'milkdragon'
+    'milkdragon',
+    'andy'
 ];
+let themeLabels = {
+    "milkdragon": "奶龙",
+    "andy": "安梦梦"
+};
 let jsdelivr = localStorage.getItem("jsdelivr") || 'https://cdn.jsdelivr.net';
 let theme = localStorage.getItem("theme") || 'milkdragon';
 function getImage(theme, x) {
@@ -32,6 +37,24 @@ function getImage(theme, x) {
         `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/${theme}/${x}.gif` :
         localStorage.getItem(`${x}`);
 }
+let statusKeys = [
+    "AC", "WA", "TLE", "MLE", "RE",
+    "OLE", "UKE", "Judging", "CE", "Waiting", "Unshown"
+];
+
+let statusLabels = {
+    "AC": "AC 图片 URL",
+    "WA": "WA 图片 URL",
+    "TLE": "TLE 图片 URL",
+    "MLE": "MLE 图片 URL",
+    "RE": "RE 图片 URL",
+    "OLE": "OLE 图片 URL",
+    "UKE": "UKE 图片 URL",
+    "Judging": "Judging 图片 URL",
+    "CE": "CE 图片 URL",
+    "Waiting": "Waiting 图片 URL",
+    "Unshown": "Unshown 图片 URL"
+};
 let AC = getImage(theme, 'AC');
 let WA = getImage(theme, 'WA');
 let TLE = getImage(theme, 'TLE');
@@ -112,11 +135,11 @@ function subBetter() {
         }
     }
     let info = document.getElementsByClassName('info-rows')[0].children[id].children[1];;
-    if (info.innerHTML.includes('Judging')) firstSTA = 7;
-    if (info.innerHTML.includes('Compile Error') || info.innerHTML.includes('CE')) firstSTA = 8;
-    if (info.innerHTML.includes('Unknown Error') || info.innerHTML.includes('UKE')) firstSTA = 6;
-    if (info.innerHTML.includes('Waiting') || info.innerHTML.includes('WJ')) firstSTA = 9;
-    if (info.innerHTML.includes('Unshown') || info.innerHTML.includes('US')) firstSTA = 10;
+    if (info.innerText.includes('Judging')) firstSTA = 7;
+    if (info.innerText.includes('Compile Error')) firstSTA = 8;
+    if (info.innerText.includes('Unknown Error')) firstSTA = 6;
+    if (info.innerText.includes('Waiting')) firstSTA = 9;
+    if (info.innerText.includes('Unshown')) firstSTA = 10;
     if (firstSTA === -1) return;
     // info.innerHTML = `${firstSTA}`;
     // info.innerHTML = `${txt[firstSTA]}`;
@@ -155,6 +178,20 @@ function addButton() {
             </select >
             <input type="text" id="customJsdelivr" placeholder="输入自定义地址" ${!jsdelivrOptions.includes(jsdelivr) ? `value='${jsdelivr}' style="display:block;" ` : `style="display:none;"`}>
             <button id="saveJsdelivr">保存 jsdelivr 设置</button>
+
+            <p>选择主题：</p>
+            <select id="themeSelect">
+                ${themeOptions.map(option => `<option value="${option}" ${option === theme ? 'selected' : ''}>${option}（${themeLabels[option]}）</option>`).join('')}
+                ${`<option value="custom" ${!jsdelivrOptions.includes(jsdelivr) ? 'selected' : ''}>自定义</option>`}
+            </select>
+
+            <div id="customThemeInputs" style="display: ${!jsdelivrOptions.includes(jsdelivr) ? 'block' : 'none'};">
+                ${statusKeys.map(key => `
+                    <input type="text" id="${key}" placeholder="输入 ${statusLabels[key]}" value="${localStorage.getItem(key) || ''}">
+                `).join('')}
+            </div>
+
+            <button id="saveTheme">保存主题设置</button>
             `;
 
         // 添加样式
@@ -177,6 +214,9 @@ function addButton() {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    max-height: 80vh;  /* 限制最大高度为 80% 视口高度 */
+    overflow-y: auto;  /* 内容超出时可滚动 */
 }
 
 .popup-header {
@@ -198,43 +238,7 @@ function addButton() {
     font-size: 18px;
 }
 
-#opacityInput {
-    width: 80%;
-    margin: 10px 0;
-    padding: 5px;
-    text-align: center;
-    border-radius: 5px;
-    border: 1px solid #ccc;  /* 和 jsdelivr 选择框一致的边框 */
-}
-
-#saveOpacity {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#saveOpacity:hover {
-    background: #0056b3;
-}
-
-.jsdelivr-settings {
-    margin: 10px 0;
-    width: 80%;
-    text-align: left;
-}
-
-#jsdelivrSelect {
-    width: 100%;
-    padding: 5px;
-    margin: 5px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-#customJsdelivr {
+input, select {
     width: 100%;
     padding: 5px;
     margin: 5px 0;
@@ -244,17 +248,22 @@ function addButton() {
     text-align: center;
 }
 
-#saveJsdelivr {
-    background: #007bff;  /* 改成蓝色 */
+button {
+    background: #007bff;
     color: white;
     border: none;
     padding: 8px 12px;
     cursor: pointer;
     border-radius: 5px;
+    width: 100%;
 }
 
-#saveJsdelivr:hover {
+button:hover {
     background: #0056b3;
+}
+    
+option {
+    text-align-last: center;
 }
 `;
 
@@ -286,6 +295,29 @@ function addButton() {
             localStorage.setItem("jsdelivr", newJsdelivr);
             alert(`设置已保存：jsdelivr 源 = ${newJsdelivr}`);
         });
+
+        document.getElementById("themeSelect").addEventListener("change", function () {
+            document.getElementById("customThemeInputs").style.display = this.value === "custom" ? "block" : "none";
+        });
+
+        document.getElementById("saveTheme").addEventListener("click", function () {
+            let selected = document.getElementById("themeSelect").value;
+            let newTheme = selected === "custom" ? "custom" : selected;
+
+            if (newTheme === "custom") {
+                let missingFields = statusKeys.filter(key => !document.getElementById(key).value.trim());
+                if (missingFields.length > 0) {
+                    alert("请填写所有图片的完整 URL！");
+                    return;
+                }
+
+                statusKeys.forEach(key => localStorage.setItem(key, document.getElementById(key).value.trim()));
+            }
+
+            localStorage.setItem("theme", newTheme);
+            alert(`设置已保存：主题 = ${newTheme === "custom" ? "自定义" : newTheme + '（' + themeLabels[newTheme] + '）'}`);
+        });
+
 
         document.getElementById("closePopup").addEventListener("click", function () {
             document.body.removeChild(popup);
