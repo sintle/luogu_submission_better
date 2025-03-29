@@ -1,15 +1,31 @@
 # 插件下载地址
 
-- <https://greasyfork.org/zh-CN/scripts/530997-%E6%B4%9B%E8%B0%B7%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96>
+- <https://greasyfork.org/zh-CN/scripts/530997> 或 <https://gf.qytechs.cn/zh-CN/scripts/530997>
+
+  这两个链接是 greasyfork 版本和它的镜像站（镜像站便于国内用户下载）。与 GitHub 仓库建立了 Webhook，理论上也是第一时间更新。
+
 - <https://raw.githubusercontent.com/chenyuxuan2009/luogu_submission_better/refs/heads/main/luogu_submission_better.js>
+
+  这个是 GitHub Raw 链接。是第一时间更新的资源。
 
 - <https://gitee.com/cyx2009/luogu_submission_better/raw/main/luogu_submission_better.js>
 
-如果前两个都打不开可以选择使用第三个 gitee 的镜像仓库链接。
+  这个是 Gitee Raw 链接。如果链接打开不是源码，不要直接点击链接，复制链接地址到浏览器地址栏进入。
 
-如果 gitee 链接打开不是源码，不要直接点击链接，复制链接地址到浏览器地址栏进入。
+插件是油猴脚本，需要先安装 TamperMonkey 插件。下方列出了部分浏览器链接。更多的请自行查看 <https://www.tampermonkey.net/> 官网。
 
-插件是油猴脚本，需要先安装 TamperMonkey 插件。安装油猴插件自行搜索相关教程。
+- <https://chromewebstore.google.com/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo>
+
+- <https://microsoftedge.microsoft.com/addons/detail/iikmkjmpaadaobahmlepeloendndfphd>
+- <https://addons.mozilla.org/zh-CN/firefox/addon/tampermonkey/>
+
+分别是 Google Chrome、Microsoft Edge、Mozilla FireFox 的安装。Google Chrome 安装 TamperMonkey 可能需要一些手法，如果你使用 Google Chrome 但是没有什么手法，我在洛谷题目附件传了一份 crx 离线安装的 5.1.1 版本。先下载 [dhdgffkkebhmkfjojejmpbldmpobfkfo_5.1.1.crx](https://www.luogu.com.cn/fe/api/problem/downloadAttachment/azvqp6sa)，然后打开 <chrome://extensions/> 把 crx 文件拖进去。
+
+**请打开浏览器开发者模式或开发人员模式。**
+
+- <chrome://extensions/>
+- <edge://extensions/>
+- FireFox 大概是默认开启的。本地实测安装之后不需要修改任何设置。
 
 # 效果展示
 
@@ -18,6 +34,8 @@
 ![](https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/example2.gif)
 
 ![](https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/example3.gif)
+
+![](https://cdn.jsdelivr.net/gh/chenyuxuan2009/luogu_submission_better/example4.gif)
 
 第一张图可以安装插件成功之后在 <https://www.luogu.com.cn/record/72597888> 查看。
 

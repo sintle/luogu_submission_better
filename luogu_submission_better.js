@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      1.4
+// @version      1.5
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -30,6 +30,7 @@ let UKE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/UKE.gif`
 let Judging = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/Judging.gif`
 let CE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/CE.gif`
 let Waiting = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/Waiting.gif`
+let Unshown = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/Unshown.gif`
 let ACcol = `rgba(82, 196, 26, 0.3)`;
 let WAcol = `rgba(231, 76, 60, 0.3)`;
 let TLEcol = `rgba(5, 34, 66, 0.3)`;
@@ -40,9 +41,10 @@ let UKEcol = `rgba(14, 29, 105, 0.3)`;
 let Judgingcol = `rgba(20, 85, 143, 0.3)`;
 let CEcol = `rgba(250, 219, 20, 0.3)`;
 let Waitingcol = `rgba(20, 85, 143, 0.3)`;
-let sta = [AC, WA, TLE, MLE, RE, OLE, UKE, Judging, CE, Waiting];
-let col = [ACcol, WAcol, TLEcol, MLEcol, REcol, OLEcol, UKEcol, Judgingcol, CEcol, Waitingcol];
-let txt = ["AC", "WA", "TLE", "MLE", "RE", "OLE", "UKE", "Judging", "CE", "WJ"];
+let Unshowncol = `rgba(38, 38, 38, 0.3)`;
+let sta = [AC, WA, TLE, MLE, RE, OLE, UKE, Judging, CE, Waiting, Unshown];
+let col = [ACcol, WAcol, TLEcol, MLEcol, REcol, OLEcol, UKEcol, Judgingcol, CEcol, Waitingcol, Unshowncol];
+let txt = ["AC", "WA", "TLE", "MLE", "RE", "OLE", "UKE", "Judging", "CE", "WJ", "US"];
 function getCol(x) {
     return `background: linear-gradient(${col[x]}, ${col[x]}), url('${sta[x]}'); background-size: cover;`;
 }
@@ -101,9 +103,11 @@ function subBetter() {
     if (info.innerHTML.includes('Compile Error') || info.innerHTML.includes('CE')) firstSTA = 8;
     if (info.innerHTML.includes('Unknown Error') || info.innerHTML.includes('UKE')) firstSTA = 6;
     if (info.innerHTML.includes('Waiting') || info.innerHTML.includes('WJ')) firstSTA = 9;
+    if (info.innerHTML.includes('Unshown') || info.innerHTML.includes('US')) firstSTA = 10;
+    if (firstSTA === -1) return;
     // info.innerHTML = `${firstSTA}`;
     // info.innerHTML = `${txt[firstSTA]}`;
-    if (firstSTA === -1) return;
+    // return;
     if (firstSTA == 7) {
         if (!info.innerHTML.includes('spinner')) {
             info.innerHTML = `<div data-v-21e0a7cc="" class="test-case" style="${getCol(firstSTA)}" id="luogu_submission_better_right_row"><div data-v-21e0a7cc="" class="content"><div data-v-bbdab89a="" data-v-21e0a7cc="" class="spinner" style="width: 32px; height: 32px;"><div data-v-bbdab89a="" style="width: 32px; height: 32px; border-width: 2px;"></div></div></div></div>`
