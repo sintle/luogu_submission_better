@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.3
+// @version      2.4
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -73,6 +73,7 @@ function subBetter() {
             tc[i].style = getCol(7);
             continue;
         }
+        if (!tc[i].getElementsByClassName('status')[0]) continue;
         let status = tc[i].getElementsByClassName('status')[0].innerHTML;
         if (status.length > 2) status = status.substring(0, 2);
         let tmpSTA = -1;
