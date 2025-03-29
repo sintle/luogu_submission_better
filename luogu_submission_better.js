@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.6
+// @version      2.7
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -24,19 +24,19 @@ const jsdelivrOptions = [
     'https://cdn.mengze.vip'
 ];
 const themeOptions = [
-    'milkdragon',
+    'nailoong',
     'andy'
 ];
 const themeLabels = {
-    "milkdragon": "奶龙",
+    "nailoong": "奶龙",
     "andy": "安梦梦"
 };
 const themeTypes = {
-    "milkdragon": "gif",
+    "nailoong": "gif",
     "andy": "gif"
 };
 let jsdelivr = localStorage.getItem("jsdelivr") || 'https://cdn.jsdelivr.net';
-let theme = localStorage.getItem("theme") || 'milkdragon';
+let theme = localStorage.getItem("theme") || 'nailoong';
 function getImage(theme, x) {
     return themeOptions.includes(theme) ?
         `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/${theme}/${x}.${themeTypes[theme]}` :
