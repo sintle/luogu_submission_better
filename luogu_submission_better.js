@@ -16,32 +16,35 @@
 // @updateURL https://update.greasyfork.org/scripts/530997/%E6%B4%9B%E8%B0%B7%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96.user.js
 // ==/UserScript==
 
-
-// let jsdelivr = 'https://cdn.jsdelivr.net'
-// let jsdelivr = 'https://cdn.mengze.vip'
-let jsdelivr = 'https://jsdelivrcn.netlify.app'
-let AC = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/AC.gif`
-let WA = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/WA.gif`
-let TLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/TLE.gif`
-let MLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/MLE.gif`
-let RE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/RE.gif`
-let OLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/OLE.gif`
-let UKE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/UKE.gif`
-let Judging = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/Judging.gif`
-let CE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/CE.gif`
-let Waiting = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/Waiting.gif`
-let Unshown = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/Unshown.gif`
-let ACcol = `rgba(82, 196, 26, 0.3)`;
-let WAcol = `rgba(231, 76, 60, 0.3)`;
-let TLEcol = `rgba(5, 34, 66, 0.3)`;
-let MLEcol = `rgba(5, 34, 66, 0.3)`;
-let REcol = `rgba(157, 61, 207, 0.3)`;
-let OLEcol = `rgba(5, 34, 66, 0.3)`;
-let UKEcol = `rgba(14, 29, 105, 0.3)`;
-let Judgingcol = `rgba(20, 85, 143, 0.3)`;
-let CEcol = `rgba(250, 219, 20, 0.3)`;
-let Waitingcol = `rgba(20, 85, 143, 0.3)`;
-let Unshowncol = `rgba(38, 38, 38, 0.3)`;
+let opacity = localStorage.getItem("opacity") || 0.3;
+const jsdelivrOptions = [
+    'https://cdn.jsdelivr.net',
+    'https://jsdelivrcn.netlify.app',
+    'https://cdn.mengze.vip'
+];
+let jsdelivr = localStorage.getItem("jsdelivr") || 'https://cdn.jsdelivr.net';
+let AC = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/AC.gif`
+let WA = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/WA.gif`
+let TLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/TLE.gif`
+let MLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/MLE.gif`
+let RE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/RE.gif`
+let OLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/OLE.gif`
+let UKE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/UKE.gif`
+let Judging = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/Judging.gif`
+let CE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/CE.gif`
+let Waiting = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/Waiting.gif`
+let Unshown = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/milkdragon/Unshown.gif`
+let ACcol = `rgba(82, 196, 26, ${opacity})`;
+let WAcol = `rgba(231, 76, 60, ${opacity})`;
+let TLEcol = `rgba(5, 34, 66, ${opacity})`;
+let MLEcol = `rgba(5, 34, 66, ${opacity})`;
+let REcol = `rgba(157, 61, 207, ${opacity})`;
+let OLEcol = `rgba(5, 34, 66, ${opacity})`;
+let UKEcol = `rgba(14, 29, 105, ${opacity})`;
+let Judgingcol = `rgba(20, 85, 143, ${opacity})`;
+let CEcol = `rgba(250, 219, 20, ${opacity})`;
+let Waitingcol = `rgba(20, 85, 143, ${opacity})`;
+let Unshowncol = `rgba(38, 38, 38, ${opacity})`;
 let sta = [AC, WA, TLE, MLE, RE, OLE, UKE, Judging, CE, Waiting, Unshown];
 let col = [ACcol, WAcol, TLEcol, MLEcol, REcol, OLEcol, UKEcol, Judgingcol, CEcol, Waitingcol, Unshowncol];
 let txt = ["AC", "WA", "TLE", "MLE", "RE", "OLE", "UKE", "Judging", "CE", "WJ", "US"];
@@ -120,15 +123,178 @@ function subBetter() {
     }
 }
 function addButton() {
-    let sidebar = document.querySelector('.nav-group.on-expand ul');
-    if (!sidebar) return;
-    sidebar.innerHTML += `  
-    <li data-v-40281d0d="" data-v-6c9e83f4="" title="插件设置">
-      <a data-v-12b24cc3="" data-v-40281d0d="" href="/plugin/settings" class="" disabled="false">
-        <span data-v-40281d0d="" class="title minor">插件设置</span>
-      </a>
-    </li>
+    function createSettingsPopup() {
+        // 如果已经存在弹窗，避免重复创建
+        if (document.getElementById('settingsPopup')) return;
+
+        // 创建悬浮窗口
+        let popup = document.createElement("div");
+        popup.id = "settingsPopup";
+        popup.innerHTML = `
+            <div class="popup-header">
+                <span>插件设置</span>
+                <button id="closePopup">✖</button>
+            </div>
+            <p>调整纯色背景的透明度：</p>
+            <input type="number" id="opacityInput" min="0" max="1" value="${localStorage.getItem("opacity") || 0.3}">
+            <button id="saveOpacity">保存透明度设置</button>
+            <p>选择 jsdelivr 源服务器：<br>（只适用官方主题）</p>
+            <select id="jsdelivrSelect">
+                ${jsdelivrOptions.map(option => `<option value="${option}" ${option === jsdelivr ? 'selected' : ''}>${option}</option>`).join('')}
+                <option value="custom">自定义</option>
+            </select>
+            <input type="text" id="customJsdelivr" style="display:none;" placeholder="输入自定义地址">
+            <button id="saveJsdelivr">保存 jsdelivr 设置</button>
+        `;
+
+        // 添加样式
+        let style = document.createElement("style");
+        style.innerHTML = `
+#settingsPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 9999;
+    border-radius: 8px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#closePopup {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#opacityInput {
+    width: 80%;
+    margin: 10px 0;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #ccc;  /* 和 jsdelivr 选择框一致的边框 */
+}
+
+#saveOpacity {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#saveOpacity:hover {
+    background: #0056b3;
+}
+
+.jsdelivr-settings {
+    margin: 10px 0;
+    width: 80%;
+    text-align: left;
+}
+
+#jsdelivrSelect {
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#customJsdelivr {
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#saveJsdelivr {
+    background: #007bff;  /* 改成蓝色 */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#saveJsdelivr:hover {
+    background: #0056b3;
+}
 `;
+
+        document.body.appendChild(style);
+        document.body.appendChild(popup);
+
+        // 事件监听
+        document.getElementById("saveOpacity").addEventListener("click", function () {
+            let opacity = document.getElementById("opacityInput").value;
+            if (opacity < 0 || opacity > 1 || opacity === "") {
+                alert("请输入 0~1 之间的数");
+                return;
+            }
+            localStorage.setItem("opacity", opacity);
+            alert(`设置已保存：透明度 = ${opacity}`);
+        });
+        document.getElementById("jsdelivrSelect").addEventListener("change", function () {
+            let customInput = document.getElementById("customJsdelivr");
+            customInput.style.display = this.value === "custom" ? "block" : "none";
+        });
+
+        document.getElementById("saveJsdelivr").addEventListener("click", function () {
+            let selected = document.getElementById("jsdelivrSelect").value;
+            let newJsdelivr = selected === "custom" ? document.getElementById("customJsdelivr").value : selected;
+            if (!newJsdelivr) {
+                alert("请输入有效的 jsdelivr 地址");
+                return;
+            }
+            localStorage.setItem("jsdelivr", newJsdelivr);
+            alert(`设置已保存：jsdelivr 源 = ${newJsdelivr}`);
+        });
+
+        document.getElementById("closePopup").addEventListener("click", function () {
+            document.body.removeChild(popup);
+        });
+    }
+
+    // 绑定点击事件，打开悬浮框
+    document.querySelector(".nav-group.on-expand ul").insertAdjacentHTML("beforeend", `
+        <li data-v-40281d0d="" data-v-6c9e83f4="" title="插件设置">
+          <a data-v-12b24cc3="" data-v-40281d0d="" href="#" class="" disabled="false" id="pluginSettingsBtn">
+            <span data-v-40281d0d="" class="title minor">插件设置</span>
+          </a>
+        </li>
+    `);
+
+    document.getElementById("pluginSettingsBtn").addEventListener("click", function (event) {
+        event.preventDefault();
+        createSettingsPopup();
+    });
 }
 (function () {
     'use strict';

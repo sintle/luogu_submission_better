@@ -43,31 +43,19 @@
 
 第三张图在正常等待评测的时候会显示，遇上 RMJ 失效会概率 UKE / Waiting。
 
+第四张图在 OI 赛制比赛时会显示。
+
 # 常见问题
+
+- 如何打开设置？
+
+  打开任意洛谷新版界面。例如等级分界面 <https://www.luogu.com.cn/ranking/elo>。在打开网页一秒后，更多功能一栏会出现『插件设置』按钮。点击即可打开设置界面。
 
 - 为什么图片没有加载？图片加载太慢怎么办？
 
-  源码提供了几个镜像源。
+  打开设置，在『选择 jsdelivr 源服务器』换源。也支持自定义其他 jsdelivr 源。
 
-  ```js
-  // let jsdelivr = 'https://cdn.jsdelivr.net'
-  // let jsdelivr = 'https://cdn.mengze.vip'
-  let jsdelivr = 'https://jsdelivrcn.netlify.app/'
-  ```
-
-  如果需要修改，注释掉对应的源，把想要的源注释取消即可。
-
-  例如需要使用原站，就改为
-
-  ```js
-  let jsdelivr = 'https://cdn.jsdelivr.net'
-  // let jsdelivr = 'https://cdn.mengze.vip'
-  // let jsdelivr = 'https://jsdelivrcn.netlify.app/'
-  ```
-
-  即可。
-
-  建议先直接访问一下你想要切换的源。目前版本默认用 jsdelivr 的镜像站加速了。
+  建议先直接访问一下你想要切换的源。目前版本默认使用原站。
 
   **强烈建议先访问 <https://www.luogu.com.cn/record/72597888> 把图片加载一下。等待动图完全动起来。为了验证是否缓存，刷新页面查看加载是否仍然过慢。如果仍然过慢，尝试切换图源。如果你是一位魔法师，还可以使用 / 停止使用魔法。**
 
@@ -75,17 +63,4 @@
 
 - 如何修改图片？
 
-  源码定义了如下内容：
-
-  ```js
-  let AC = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/AC.gif`
-  let WA = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/WA.gif`
-  let TLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/TLE.gif`
-  let MLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/MLE.gif`
-  let RE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/RE.gif`
-  let OLE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/OLE.gif`
-  let UKE = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/UKE.gif`
-  let Judging = `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/Judging.gif`
-  ```
-
-  把对应状态的链接改成你自己的图片即可。
+  这个理应会在后面版本的设置中直接出现。先鸽一会儿。代码写好了自然会更新这段的教程。
