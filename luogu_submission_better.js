@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.5
+// @version      2.6
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -17,6 +17,7 @@
 // ==/UserScript==
 
 let opacity = localStorage.getItem("opacity") || 0.3;
+let replaceSidebarStatus = localStorage.getItem("replaceSidebarStatus") || 1;
 const jsdelivrOptions = [
     'https://cdn.jsdelivr.net',
     'https://jsdelivrcn.netlify.app',
@@ -26,15 +27,19 @@ const themeOptions = [
     'milkdragon',
     'andy'
 ];
-let themeLabels = {
+const themeLabels = {
     "milkdragon": "奶龙",
     "andy": "安梦梦"
+};
+const themeTypes = {
+    "milkdragon": "gif",
+    "andy": "gif"
 };
 let jsdelivr = localStorage.getItem("jsdelivr") || 'https://cdn.jsdelivr.net';
 let theme = localStorage.getItem("theme") || 'milkdragon';
 function getImage(theme, x) {
     return themeOptions.includes(theme) ?
-        `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/${theme}/${x}.gif` :
+        `${jsdelivr}/gh/chenyuxuan2009/luogu_submission_better/theme/${theme}/${x}.${themeTypes[theme]}` :
         localStorage.getItem(`${x}`);
 }
 let statusKeys = [
@@ -125,33 +130,35 @@ function subBetter() {
     }
     if (judging) firstSTA = 7;
     if (firstSTA === -1 && ac) firstSTA = 0;
-    let doc = document.querySelector('div.info-rows');
-    let id = -1;
-    if (!doc) return;
-    for (let i = 0; i < doc.children.length; i += 1) {
-        if (doc.children[i].children[0].children[0].innerHTML.includes('评测状态')) {
-            id = i;
-            break;
+    if (replaceSidebarStatus === "1") {
+        let doc = document.querySelector('div.info-rows');
+        let id = -1;
+        if (!doc) return;
+        for (let i = 0; i < doc.children.length; i += 1) {
+            if (doc.children[i].children[0].children[0].innerHTML.includes('评测状态')) {
+                id = i;
+                break;
+            }
         }
-    }
-    let info = document.getElementsByClassName('info-rows')[0].children[id].children[1];;
-    if (info.innerText.includes('Judging')) firstSTA = 7;
-    if (info.innerText.includes('Compile Error')) firstSTA = 8;
-    if (info.innerText.includes('Unknown Error')) firstSTA = 6;
-    if (info.innerText.includes('Waiting')) firstSTA = 9;
-    if (info.innerText.includes('Unshown')) firstSTA = 10;
-    if (firstSTA === -1) return;
-    // info.innerHTML = `${firstSTA}`;
-    // info.innerHTML = `${txt[firstSTA]}`;
-    // return;
-    if (firstSTA == 7) {
-        if (!info.innerHTML.includes('spinner')) {
-            info.innerHTML = `<div data-v-21e0a7cc="" class="test-case" style="${getCol(firstSTA)}" id="luogu_submission_better_right_row"><div data-v-21e0a7cc="" class="content"><div data-v-bbdab89a="" data-v-21e0a7cc="" class="spinner" style="width: 32px; height: 32px;"><div data-v-bbdab89a="" style="width: 32px; height: 32px; border-width: 2px;"></div></div></div></div>`
+        let info = document.getElementsByClassName('info-rows')[0].children[id].children[1];;
+        if (info.innerText.includes('Judging')) firstSTA = 7;
+        if (info.innerText.includes('Compile Error')) firstSTA = 8;
+        if (info.innerText.includes('Unknown Error')) firstSTA = 6;
+        if (info.innerText.includes('Waiting')) firstSTA = 9;
+        if (info.innerText.includes('Unshown')) firstSTA = 10;
+        if (firstSTA === -1) return;
+        // info.innerHTML = `${firstSTA}`;
+        // info.innerHTML = `${txt[firstSTA]}`;
+        // return;
+        if (firstSTA == 7) {
+            if (!info.innerHTML.includes('spinner')) {
+                info.innerHTML = `<div data-v-21e0a7cc="" class="test-case" style="${getCol(firstSTA)}" id="luogu_submission_better_right_row"><div data-v-21e0a7cc="" class="content"><div data-v-bbdab89a="" data-v-21e0a7cc="" class="spinner" style="width: 32px; height: 32px;"><div data-v-bbdab89a="" style="width: 32px; height: 32px; border-width: 2px;"></div></div></div></div>`
+            }
         }
-    }
-    else {
-        if (!info.innerHTML.includes(txt[firstSTA])) {
-            info.innerHTML = `<div data-v-21e0a7cc="" class="test-case" style="${getCol(firstSTA)}" id="luogu_submission_better_right_row"><div data-v-21e0a7cc="" class="content"><div data-v-21e0a7cc="" class="status">${txt[firstSTA]}</div></div> </div>`;
+        else {
+            if (!info.innerHTML.includes(txt[firstSTA])) {
+                info.innerHTML = `<div data-v-21e0a7cc="" class="test-case" style="${getCol(firstSTA)}" id="luogu_submission_better_right_row"><div data-v-21e0a7cc="" class="content"><div data-v-21e0a7cc="" class="status">${txt[firstSTA]}</div></div> </div>`;
+            }
         }
     }
 }
@@ -169,7 +176,7 @@ function addButton() {
                 <button id="closePopup">✖</button>
             </div>
             <p>调整纯色背景的透明度：</p>
-            <input type="number" id="opacityInput" min="0" max="1" value="${localStorage.getItem("opacity") || 0.3}">
+            <input type="number" id="opacityInput" min="0" max="1" step="0.1" value="${localStorage.getItem("opacity") || 0.3}">
             <button id="saveOpacity">保存透明度设置</button>
             <p>选择 jsdelivr 源服务器：<br>（只适用官方主题）</p>
             <select id="jsdelivrSelect">
@@ -192,6 +199,13 @@ function addButton() {
             </div>
 
             <button id="saveTheme">保存主题设置</button>
+
+            <p>替换右侧栏评测状态：</p>
+            <select id="replaceSidebarStatus">
+                <option value="1" ${replaceSidebarStatus === "1" ? "selected" : ""}>是</option>
+                <option value="0" ${replaceSidebarStatus === "0" ? "selected" : ""}>否</option>
+            </select>
+            <button id="saveReplaceSidebarStatus">保存状态设置</button>
             `;
 
         // 添加样式
@@ -211,10 +225,6 @@ function addButton() {
     border-radius: 8px;
     text-align: center;
     font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
     max-height: 80vh;  /* 限制最大高度为 80% 视口高度 */
     overflow-y: auto;  /* 内容超出时可滚动 */
 }
@@ -228,9 +238,7 @@ function addButton() {
     border-bottom: 1px solid #ccc;
     padding-bottom: 8px;
     margin-bottom: 10px;
-    width: 100%;
 }
-
 #closePopup {
     background: none;
     border: none;
@@ -248,7 +256,7 @@ input, select {
     text-align: center;
 }
 
-button {
+button:not(.popup-header button) {
     background: #007bff;
     color: white;
     border: none;
@@ -258,12 +266,8 @@ button {
     width: 100%;
 }
 
-button:hover {
+button:not(.popup-header button):hover {
     background: #0056b3;
-}
-    
-option {
-    text-align-last: center;
 }
 `;
 
@@ -318,6 +322,11 @@ option {
             alert(`设置已保存：主题 = ${newTheme === "custom" ? "自定义" : newTheme + '（' + themeLabels[newTheme] + '）'}`);
         });
 
+        document.getElementById("saveReplaceSidebarStatus").addEventListener("click", function () {
+            let value = document.getElementById("replaceSidebarStatus").value;
+            localStorage.setItem("replaceSidebarStatus", value);
+            alert(`设置已保存：${value === "1" ? "替换" : "不替换"} 右侧栏评测状态`);
+        });
 
         document.getElementById("closePopup").addEventListener("click", function () {
             document.body.removeChild(popup);
