@@ -5,9 +5,17 @@
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
+// @match        *://www.luogu.com.cn
+// @match        *://www.luogu.com.cn/*
 // @run-at       document-end
+// @grant        GM_registerMenuCommand
+// @grant        GM_setValue
+// @grant        GM_getValue
 // @license      MIT
+// @downloadURL https://update.greasyfork.org/scripts/530997/%E6%B4%9B%E8%B0%B7%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96.user.js
+// @updateURL https://update.greasyfork.org/scripts/530997/%E6%B4%9B%E8%B0%B7%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95%E6%98%BE%E7%A4%BA%E4%BC%98%E5%8C%96.user.js
 // ==/UserScript==
+
 
 // let jsdelivr = 'https://cdn.jsdelivr.net'
 // let jsdelivr = 'https://cdn.mengze.vip'
@@ -38,7 +46,7 @@ let txt = ["AC", "WA", "TLE", "MLE", "RE", "OLE", "UKE", "Judging", "CE", "WJ"];
 function getCol(x) {
     return `background: linear-gradient(${col[x]}, ${col[x]}), url('${sta[x]}'); background-size: cover;`;
 }
-function main() {
+function subBetter() {
     let tc = document.getElementsByClassName('test-case');
     let len = tc.length;
     let firstSTA = -1;
@@ -79,8 +87,9 @@ function main() {
     }
     if (judging) firstSTA = 7;
     if (firstSTA === -1 && ac) firstSTA = 0;
-    let doc = document.getElementsByClassName('info-rows')[0];
+    let doc = document.querySelector('div.info-rows');
     let id = -1;
+    if (!doc) return;
     for (let i = 0; i < doc.children.length; i += 1) {
         if (doc.children[i].children[0].children[0].innerHTML.includes('评测状态')) {
             id = i;
@@ -105,9 +114,26 @@ function main() {
             info.innerHTML = `<div data-v-21e0a7cc="" class="test-case" style="${getCol(firstSTA)}" id="luogu_submission_better_right_row"><div data-v-21e0a7cc="" class="content"><div data-v-21e0a7cc="" class="status">${txt[firstSTA]}</div></div> </div>`;
         }
     }
-};
+}
+function addButton() {
+    let sidebar = document.querySelector('.nav-group.on-expand ul');
+    if (!sidebar) return;
+    sidebar.innerHTML += `  
+    <li data-v-40281d0d="" data-v-6c9e83f4="" title="插件设置">
+      <a data-v-12b24cc3="" data-v-40281d0d="" href="/plugin/settings" class="" disabled="false">
+        <span data-v-40281d0d="" class="title minor">插件设置</span>
+      </a>
+    </li>
+`;
+}
 (function () {
-    setInterval(function () {
-        main();
-    }, 10);
+    'use strict';
+    if (/^https:\/\/www\.luogu\.com\.cn\/record\/\d+$/.test(window.location.href)) {
+        setInterval(function () {
+            subBetter();
+        }, 10);
+    }
+    setTimeout(function () {
+        addButton();
+    }, 1000);
 })();
