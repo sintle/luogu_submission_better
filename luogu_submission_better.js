@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.13
+// @version      2.14
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -238,7 +238,7 @@ function addButton() {
     overflow-y: auto;  /* 内容超出时可滚动 */
 }
 
-.popup-header {
+#settingsPopup .popup-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -248,14 +248,14 @@ function addButton() {
     padding-bottom: 8px;
     margin-bottom: 10px;
 }
-#closePopup {
+#settingsPopup #closePopup {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 18px;
 }
 
-input, select {
+#settingsPopup input, select {
     width: 100%;
     padding: 5px;
     margin: 5px 0;
@@ -265,7 +265,7 @@ input, select {
     text-align: center;
 }
 
-button:not(.popup-header button) {
+#settingsPopup button:not(.popup-header button) {
     background: #007bff;
     color: white;
     border: none;
@@ -275,7 +275,7 @@ button:not(.popup-header button) {
     width: 100%;
 }
 
-button:not(.popup-header button):hover {
+#settingsPopup button:not(.popup-header button):hover {
     background: #0056b3;
 }
 `;
