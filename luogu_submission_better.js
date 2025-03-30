@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.7
+// @version      2.8
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -17,7 +17,7 @@
 // ==/UserScript==
 
 let opacity = localStorage.getItem("opacity") || 0.3;
-let replaceSidebarStatus = localStorage.getItem("replaceSidebarStatus") || 1;
+let replaceSidebarStatus = localStorage.getItem("replaceSidebarStatus") || "1";
 const jsdelivrOptions = [
     'https://cdn.jsdelivr.net',
     'https://jsdelivrcn.netlify.app',
