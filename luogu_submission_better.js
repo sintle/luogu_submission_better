@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.9
+// @version      2.10
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -195,10 +195,10 @@ function addButton() {
             <p>选择主题：</p>
             <select id="themeSelect">
                 ${themeOptions.map(option => `<option value="${option}" ${option === theme ? 'selected' : ''}>${option}（${themeLabels[option]}）</option>`).join('')}
-                ${`<option value="custom" ${!jsdelivrOptions.includes(jsdelivr) ? 'selected' : ''}>自定义</option>`}
+                ${`<option value="custom" ${!themeOptions.includes(theme) ? 'selected' : ''}>自定义</option>`}
             </select>
 
-            <div id="customThemeInputs" style="display: ${!jsdelivrOptions.includes(jsdelivr) ? 'block' : 'none'};">
+            <div id="customThemeInputs" style="display: ${!themeOptions.includes(theme) ? 'block' : 'none'};">
                 ${statusKeys.map(key => `
                     <input type="text" id="${key}" placeholder="输入 ${statusLabels[key]}" value="${localStorage.getItem(key) || ''}">
                 `).join('')}
