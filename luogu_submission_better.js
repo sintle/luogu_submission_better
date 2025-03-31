@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.14
+// @version      2.15
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -151,10 +151,10 @@ function subBetter() {
         }
         let info = document.getElementsByClassName('info-rows')[0].children[id].children[1];;
         if (info.innerText.includes('Judging')) firstSTA = 7;
-        if (info.innerText.includes('Compile Error') || info.innerText.includes('CE')) firstSTA = 8;
-        if (info.innerText.includes('Unknown Error') || info.innerText.includes('UKE')) firstSTA = 6;
-        if (info.innerText.includes('Waiting') || info.innerText.includes('WJ')) firstSTA = 9;
-        if (info.innerText.includes('Unshown') || info.innerText.includes('US')) firstSTA = 10;
+        if (info.innerText.includes('Compile Error')) firstSTA = 8;
+        if (info.innerText.includes('Unknown Error')) firstSTA = 6;
+        if (info.innerText.includes('Waiting')) firstSTA = 9;
+        if (info.innerText.includes('Unshown')) firstSTA = 10;
         if (firstSTA === -1) return;
         // info.innerHTML = `${firstSTA}`;
         // info.innerHTML = `${txt[firstSTA]}`;
