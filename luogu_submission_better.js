@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.17
+// @version      2.18
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -202,7 +202,7 @@ function addButton() {
 
             <p>选择主题：</p>
             <select id="themeSelect">
-                ${themeOptions.map(option => `<option value="${option}" ${option === theme ? 'selected' : ''}>${option}（${themeLabels[option]}）</option>`).join('')}
+                ${themeOptions.map(option => `<option value="${option}" ${option === theme ? 'selected' : ''}>${option}（${themeLabels[option]}）（${themeTypes[option] == 'gif' ? '动图' : '静图'}）</option>`).join('')}
                 ${`<option value="custom" ${!themeOptions.includes(theme) ? 'selected' : ''}>自定义</option>`}
             </select>
 
