@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         洛谷提交记录显示优化
 // @namespace    https://github.com/chenyuxuan2009/luogu_submission_better
-// @version      2.16
+// @version      2.17
 // @description  修改提交记录背景
 // @author       沉石鱼惊旋
 // @match        *://www.luogu.com.cn/record/*
@@ -30,21 +30,24 @@ const themeOptions = [
     'andy',
     'qqemoji',
     'qqsuperemoji',
-    'mixed1'
+    'mixed1',
+    'theresa'
 ];
 const themeLabels = {
     "nailoong": "奶龙",
     "andy": "安梦梦",
     "qqemoji": "QQ 大表情",
     "qqsuperemoji": "QQ 超级表情",
-    "mixed1": "混搭 1"
+    "mixed1": "混搭 1",
+    "theresa": "特蕾西娅"
 };
 const themeTypes = {
     "nailoong": "gif",
     "andy": "gif",
     "qqemoji": "gif",
     "qqsuperemoji": "gif",
-    "mixed1": "gif"
+    "mixed1": "gif",
+    "theresa": "png"
 };
 let jsdelivr = localStorage.getItem("jsdelivr") || 'https://cdn.jsdelivr.net';
 let theme = localStorage.getItem("theme") || 'nailoong';
